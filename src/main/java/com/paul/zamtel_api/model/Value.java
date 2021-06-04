@@ -6,33 +6,33 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Value {
 
-    private Long id;
-    private String quote;
+    private Long statusCode;
+    private String message;
 
     public Value() {
     }
 
-    public Long getId() {
-        return this.id;
+    public Long getStatusCode() {
+        return this.statusCode;
     }
 
-    public String getQuote() {
-        return this.quote;
+    public String getMessage() {
+        return this.message;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setStatusCode(Long statusCode) {
+        this.statusCode = statusCode;
     }
 
-    public void setQuote(String quote) {
-        this.quote = quote;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     @Override
     public String toString() {
         return "Value{" +
-                "id=" + id +
-                ", quote='" + quote + '\'' +
+                "statusCode=" + statusCode +
+                ", message='" + message + '\'' +
                 '}';
     }
 }

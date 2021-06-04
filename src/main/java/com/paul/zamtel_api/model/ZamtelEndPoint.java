@@ -28,7 +28,7 @@ public class ZamtelEndPoint {
 
     @Override
     public String toString() {
-        return "Quote{" +
+        return "ZamtelAPI{" +
                 "type='" + type + '\'' +
                 ", value=" + value +
                 '}';

@@ -1,10 +1,12 @@
 package com.paul.zamtel_api.controller;
 
 import com.paul.zamtel_api.model.DAOUser;
+import com.paul.zamtel_api.model.ZamtelEndPoint;
 import com.paul.zamtel_api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class ResourceController {
@@ -48,13 +50,18 @@ public class ResourceController {
 		return "Welcome "+username;
 	}
 
-//	@GetMapping("/fromExternal")
-//	public @ResponseBody String getExternal(){
+	@RequestMapping("/fromExternal")
+	public @ResponseBody String getExternal(){
+		RestTemplate restTemplate = new RestTemplate();
+
 //		ZamtelEndPoint zamtelEndPoint = restTemplate.getForObject(
 //				"https://quoters.apps.pcfone.io/api/random", ZamtelEndPoint.class
 //		);
-//
-//		return zamtelEndPoint.toString();
-//	}
+		String results= restTemplate.getForObject(
+				"https://apps.zamtel.co.zm/zamtelAssessment", String.class
+		);
+
+		return results;
+	}
 
 }
