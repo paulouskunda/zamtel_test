@@ -33,7 +33,7 @@ What has not been done
 ##Installation
 Steps
 1. clone the project
-2. install dependencies us **marven install clean**
+2. install dependencies us **maven install clean**
 3. run the SpringBootSecurityApplication.java file
 4. Open the borrow and head to localhost:8080/swagger-ui.html
 
