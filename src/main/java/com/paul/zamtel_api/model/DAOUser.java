@@ -1,5 +1,7 @@
 package com.paul.zamtel_api.model;
 
+import org.hibernate.validator.constraints.UniqueElements;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,7 +11,8 @@ public class DAOUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@Column
+
+	@Column(unique=true)
 	private String username;
 	@Column
 	private String password;

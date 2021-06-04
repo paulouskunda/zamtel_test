@@ -19,13 +19,13 @@ public class ResourceController {
 	@Autowired
 	private PasswordEncoder bcryptEncoder;
 
-	@RequestMapping("/hellouser")
+	@GetMapping("/hellouser")
 	public String getUser()
 	{
 		return "Hello User";
 	}
 	
-	@RequestMapping("/helloadmin")
+	@GetMapping("/helloadmin")
 	public String getAdmin()
 	{
 		return "Hello Admin";
@@ -44,19 +44,15 @@ public class ResourceController {
 		}
 	}
 
-	@GetMapping("/getOne")
-	public @ResponseBody String getOne(@RequestParam String username){
-		DAOUser user = new DAOUser();
-		return "Welcome "+username;
+	@GetMapping("/getAll")
+	public @ResponseBody Iterable<DAOUser> getAll(){
+		return userDao.findAll();
 	}
 
-	@RequestMapping("/fromExternal")
+	@GetMapping("/fromExternal")
 	public @ResponseBody String getExternal(){
 		RestTemplate restTemplate = new RestTemplate();
 
-//		ZamtelEndPoint zamtelEndPoint = restTemplate.getForObject(
-//				"https://quoters.apps.pcfone.io/api/random", ZamtelEndPoint.class
-//		);
 		String results= restTemplate.getForObject(
 				"https://apps.zamtel.co.zm/zamtelAssessment", String.class
 		);

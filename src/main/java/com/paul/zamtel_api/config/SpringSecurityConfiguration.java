@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -38,7 +39,14 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 	}
-	
+
+	// this allows the swagger-ui to be accessed over the security
+	@Override
+	public void configure(WebSecurity web) {
+		web.ignoring().antMatchers("/v2/api-docs", "/configuration/**", "/swagger-resources/**",  "/swagger-ui.html", "/webjars/**", "/api-docs/**");
+	}
+
+	// this bean exposes the authentication manager
 	@Bean
 	@Override
 	public AuthenticationManager authenticationManagerBean() throws Exception
@@ -49,7 +57,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
-				// add authentication with roles
+		// add authentication with roles
 		.authorizeRequests().antMatchers("/helloadmin").hasRole("ADMIN")
 		.antMatchers("/hellouser").hasAnyRole("USER","ADMIN")
 		.antMatchers("/addUser").hasAnyRole("ADMIN")

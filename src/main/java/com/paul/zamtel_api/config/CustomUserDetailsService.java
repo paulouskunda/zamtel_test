@@ -46,4 +46,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 		return userDao.save(newUser);
 	}
 
+//	public DAOUser getOne(){
+//		return userDao.findAll();
+//	}
+
 }
