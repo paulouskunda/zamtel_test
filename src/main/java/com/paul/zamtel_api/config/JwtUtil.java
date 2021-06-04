@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,6 +31,7 @@ public class JwtUtil {
 
 	private String secret;
 	private int jwtExpirationInMs;
+	private static final Logger log = LoggerFactory.getLogger(JwtUtil.class);
 
 	@Value("${jwt.secret}")
 	public void setSecret(String secret) {
@@ -67,9 +70,15 @@ public class JwtUtil {
 			Jws<Claims> claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(authToken);
 			return true;
 		} catch (SignatureException | MalformedJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
-			throw new BadCredentialsException("INVALID_CREDENTIALS", ex);
+			log.error("INVALID_CREDENTIALS "+ex);
+			return false;
+//			throw new BadCredentialsException("INVALID_CREDENTIALS", ex);
+
 		} catch (ExpiredJwtException ex) {
-			throw ex;
+			log.error("INVALID_CREDENTIALS "+ex);
+			return false;
+
+//			throw ex;
 		}
 	}
 
